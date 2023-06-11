@@ -14,4 +14,4 @@ jobs:
       - name: Setup python 3.10
         uses: actions/setup-python@v3
       - run: pip install -r requirements.txt
-      - run: python test_main.py
+      - run: py.test
