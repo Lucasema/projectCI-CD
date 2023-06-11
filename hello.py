@@ -8,7 +8,7 @@ app.config.from_object(env_config)
 
 @app.route('/')
 def hello():
-    return 'Hello, argentinaaa!'
+    return 'Hello, argentina!'
 
 if __name__ == '__main__':
     app.run()
