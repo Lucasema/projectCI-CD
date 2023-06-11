@@ -25,7 +25,7 @@ jobs:
             with: 
               service-id: ${{ secrets.SECRET_ID }}
               api-key: ${{ secrets.SECRET_KEY }}
-    message: 
+    messageNotOk: 
         needs: [build]
         if: failure()
         runs-on: ubuntu-latest
@@ -37,6 +37,21 @@ jobs:
               SLACK_COLOR: '#fc1500'
               SLACK_ICON: https://github.com/rtCamp.png?size=48
               SLACK_MESSAGE: 'Fallo al hacer el build'
+              SLACK_TITLE: Build Status
+              SLACK_USERNAME: Slack Bot
+              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+    messageOk: 
+        needs: [deploy]
+        if: success()
+        runs-on: ubuntu-latest
+        steps: 
+          - name: Slack Notification
+            uses: rtCamp/action-slack-notify@v2
+            env:
+              SLACK_CHANNEL: general
+              SLACK_COLOR: '#00fc4c'
+              SLACK_ICON: https://github.com/rtCamp.png?size=48
+              SLACK_MESSAGE: 'Build exitoso'
               SLACK_TITLE: Build Status
               SLACK_USERNAME: Slack Bot
               SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
